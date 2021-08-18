@@ -6,7 +6,7 @@ SetTitleMatchMode, 2
 Main_Gui()
 ;====================창 이동==================
 FileRead,Win_Pos,%A_WorkingDir%\info.ini
-StringSplit, Win_Pos, Win_Pos ,`,  ; ,<-기준으로 나누기
+StringSplit, Win_Pos, Win_Pos ,`n  
 WinMove, 도우미 GUI, , %Win_Pos1%, %Win_Pos2%
 ;===============세이브 불러오기=================
 FileRead,Data,%A_WorkingDir%\Data%load_num%.ini ;저장값 불러오기
@@ -14,8 +14,7 @@ if errorlevel = 1
 {
 	return
 }
-StringSplit, Data, Data ,`, ; ,<-기준으로 나누기
-;Guicontrol,,%Data1%,1 ;쿠키
+StringSplit, Data, Data ,`n 
 
 Guicontrol,,f1,%Data1%
 Guicontrol,,f2,%Data2%
@@ -74,46 +73,32 @@ return
 
 Reload:
 F11::
-gui,submit,nohide
-WinGetPos , win_X, win_Y,,, 도우미 GUI
-FileDelete, %A_WorkingDir%\info.ini
-FileAppend,%win_X%`,,%A_WorkingDir%\info.ini
-FileAppend,%win_Y%,%A_WorkingDir%\info.ini
-FileDelete, %A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f1%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f2%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f3%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f4%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f6%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f7%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f8%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f9%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f10%`,,%A_WorkingDir%\Data%save_num%.ini
-;================End==================
-FileAppend,End,%A_WorkingDir%\Data%save_num%.ini
+save_data()
 Reload
 
 GuiClose:
 F12::
-gui,submit,nohide
-WinGetPos , win_X, win_Y,,, 도우미 GUI
-FileDelete, %A_WorkingDir%\info.ini
-FileAppend,%win_X%`,,%A_WorkingDir%\info.ini
-FileAppend,%win_Y%,%A_WorkingDir%\info.ini
-FileDelete, %A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f1%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f2%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f3%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f4%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f6%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f7%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f8%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f9%`,,%A_WorkingDir%\Data%save_num%.ini
-FileAppend,%f10%`,,%A_WorkingDir%\Data%save_num%.ini
-;================End==================
-FileAppend,End,%A_WorkingDir%\Data%save_num%.ini
 ExitApp
 
+;================Func=================
+save_data(){
+	global
+	gui,submit,nohide
+	WinGetPos , win_X, win_Y,,, 도우미 GUI
+	FileDelete, %A_WorkingDir%\info.ini
+	FileAppend,%win_X%`n,%A_WorkingDir%\info.ini
+	FileAppend,%win_Y%,%A_WorkingDir%\info.ini
+	FileDelete, %A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f1%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f2%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f3%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f4%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f6%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f7%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f8%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f9%`n,%A_WorkingDir%\Data%save_num%.ini
+	FileAppend,%f10%`n,%A_WorkingDir%\Data%save_num%.ini
+}
 Main_GUI()
 {
 	global
