@@ -2,11 +2,16 @@
 #SingleInstance force
 SetTitleMatchMode, 2
 
+; ===TODO===
+; Raw모드 추가하기. (특수문자 그대로 출력)
+;   => 한글 자판으로 되어있을 시 영어가 한글로 복사되는 버그도 수정하기.
+; 저장, 불러오기시 여러줄일때 제대로 저장 안되는 버그 수정.
+
 ;====================Main====================
 Main_Gui()
 ;====================창 이동==================
 FileRead,Win_Pos,%A_WorkingDir%\info.ini
-StringSplit, Win_Pos, Win_Pos ,`n  
+StringSplit, Win_Pos, Win_Pos ,`n
 WinMove, 도우미 GUI, , %Win_Pos1%, %Win_Pos2%
 ;===============세이브 불러오기=================
 FileRead,Data,%A_WorkingDir%\Data%load_num%.ini ;저장값 불러오기
@@ -14,7 +19,7 @@ if errorlevel = 1
 {
 	return
 }
-StringSplit, Data, Data ,`n 
+StringSplit, Data, Data ,`n
 
 Guicontrol,,f1,%Data1%
 Guicontrol,,f2,%Data2%
@@ -28,22 +33,22 @@ Guicontrol,,f10,%Data9%
 
 F1::
 gui,submit,nohide
-SendInput, %f1%
+SendInput, {Raw}%f2%
 return
 
 F2::
 gui,submit,nohide
-SendInput, %f2%
+SendInput, {Raw}%f2%
 return
 
 F3::
 gui,submit,nohide
-SendInput, %f3%
+SendInput, {Raw}%f3%
 return
 
 F4::
 gui,submit,nohide
-SendInput, %f4%
+SendInput, {Raw}%f4%
 return
 
 F6::
